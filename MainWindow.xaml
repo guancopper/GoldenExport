@@ -1,0 +1,78 @@
+﻿<Window x:Class="GoldenExport.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:TimeTool="clr-namespace:Loya.Dameer;assembly=Loya.Dameer"
+        xmlns:local="clr-namespace:GoldenExport"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="1000" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="dgCellx" TargetType="TextBlock">
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260*"/>
+            <ColumnDefinition Width="237*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="主要参数" HorizontalAlignment="Left" Height="450" Margin="10,10,0,0" VerticalAlignment="Top" Width="509" FontSize="24">
+            <Grid Margin="0,0,-2.2,-0.2">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="200" />
+
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="93*"/>
+
+                    <ColumnDefinition Width="190*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Label Content="开始时间" Grid.Column="0" Grid.Row="0" Margin="25,89,32,71.8" HorizontalAlignment="Center" Width="107"/>
+
+                <Label Content="结束时间" Grid.Column="0" Grid.Row="0" Margin="25,168,31.2,-7.2" HorizontalAlignment="Center" Width="107"/>
+
+                <TimeTool:Dameer Height="42" HorizontalContentAlignment="Center" VerticalAlignment ="Bottom" Format="Custom"
+                                 CustomFormat="yyyy-MM-dd HH:mm:ss" ShowCheckBox="False" Margin="11,0,55.2,71.8" Grid.Column="1" ShowDropDown="True" Name="DatePckerStart"/>
+
+                <TimeTool:Dameer Height="42" HorizontalContentAlignment="Center" VerticalAlignment ="Center" Format="Custom"
+                                 CustomFormat="yyyy-MM-dd HH:mm:ss" ShowCheckBox="False" Margin="11,168,50.2,-9.2" Grid.Column="1"  ShowDropDown="True" Name="DatePickerEnd"/>
+                <Button Content="选点" HorizontalAlignment="Left" Height="37" Margin="37,272,0,-108.2" VerticalAlignment="Top" Width="95" Name="choice" Click="choice_Click"/>
+                <Button Content="导出" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="115.8,272,0,-108.2" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.402,0.502" Click="Export_Click"/>
+                <Label Content="IP" Grid.Column="0" Grid.Row="0" Margin="59,29,71,131.8" HorizontalAlignment="Center" Width="34" RenderTransformOrigin="1.662,0.559"/>
+                <TextBox x:Name="iptext" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Height="40" Margin="35,29,77.2,131.8" TextWrapping="Wrap" Text="192.168.115.146" VerticalAlignment="Center" Width="223" RenderTransformOrigin="0.497,-0.338"/>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="460" VerticalAlignment="Top" Width="464">
+            <DataGrid x:Name="dataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,0,0,10" CanUserAddRows="False">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        <Setter Property="Background" Value="#001f55"></Setter>
+                        <Setter Property="Foreground" Value="#17acae"></Setter>
+                        <Setter Property="BorderThickness" Value="1" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="ID" Width="50" IsReadOnly="True" Binding="{Binding IDChoice}" ElementStyle="{StaticResource dgCellx}"/>
+                    <DataGridTextColumn Width="200" Header="名称" IsReadOnly="True" 
+                                        Binding="{Binding NameChoice}" ElementStyle="{StaticResource dgCellx}"/>
+                    <DataGridTextColumn Width="50" Header="类型" IsReadOnly="True" 
+                                        Binding="{Binding Entity}" ElementStyle="{StaticResource dgCellx}"/>
+                    <DataGridTextColumn Width="300*" Header="描述" IsReadOnly="True" 
+                                        Binding="{Binding describeChoice}" ElementStyle="{StaticResource dgCellx}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+    </Grid>
+</Window>

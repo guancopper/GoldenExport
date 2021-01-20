@@ -1,0 +1,71 @@
+﻿<Window x:Class="GoldenExport.Search"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GoldenExport"
+        mc:Ignorable="d"
+        Title="Search" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="dgCell" TargetType="TextBlock">
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="dgCellc" TargetType="CheckBox">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Tag" Value="{Binding Path=ID}"/>
+                <EventSetter Event="Click" Handler="CheckBox_Click"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        
+        <Label Content="表名称" HorizontalAlignment="Left" Margin="28,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.294,-0.626" Width="49" FontSize="20"/>
+        <ComboBox x:Name="TableNames" HorizontalAlignment="Left" Margin="150,24,0,0" VerticalAlignment="Top" Width="134" FontSize="20" SelectionChanged="TableNames_SelectionChanged"/>
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" Margin="0,62,-0.4,0" CanUserAddRows="False">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                    <Setter Property="Background" Value="#001f55"></Setter>
+                    <Setter Property="Foreground" Value="#17acae"></Setter>
+                    <Setter Property="BorderThickness" Value="1" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn
+                   x:Name="checkColumn"
+                   Width="43"
+                   Binding="{Binding Path=Choice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   CanUserSort="False"
+                   IsReadOnly="False"
+                   ElementStyle="{StaticResource dgCellc}">
+                    <DataGridCheckBoxColumn.HeaderTemplate >
+                        <DataTemplate>
+                            <CheckBox Click="AllCheckBox_Click" HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
+                        </DataTemplate>
+                    </DataGridCheckBoxColumn.HeaderTemplate>
+
+                    <DataGridCheckBoxColumn.CellStyle >
+                        <Style  >
+                            <Setter Property="CheckBox.VerticalAlignment"  Value="Center"></Setter>
+                            <Setter Property="CheckBox.HorizontalAlignment"  Value="Center"></Setter>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+
+                </DataGridCheckBoxColumn>
+                
+                
+                <DataGridTextColumn Header="ID" Width="50" IsReadOnly="True" Binding="{Binding ID}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn Width="300" Header="名称" IsReadOnly="True" 
+                                        Binding="{Binding Name}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn Width="50" Header="类型" IsReadOnly="True" 
+                                        Binding="{Binding Entity}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn Width="300*" Header="描述" IsReadOnly="True" 
+                                        Binding="{Binding describe}" ElementStyle="{StaticResource dgCell}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="eliminate" Content="清空" HorizontalAlignment="Left" Margin="678,22,0,0" VerticalAlignment="Top" Width="87" Height="32" Click="eliminateBtn_Click"/>
+        <Button x:Name="defineBtn" Content="确定" HorizontalAlignment="Left" Margin="559,22,0,0" VerticalAlignment="Top" Width="87" Height="32" Click="defineBtn_Click"/>
+
+    </Grid>
+</Window>
